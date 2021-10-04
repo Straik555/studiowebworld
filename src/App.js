@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from "react";
+import classnames from "classnames";
 
-function App() {
+import {Header} from "./components/Header";
+import {Home} from "./page/Home";
+import {Register} from "./page/Auth/Register";
+
+export const App = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const handleRegister = () => {
+        setIsOpen(!isOpen)
+    }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      <div className={classnames('container-app', {['active']: isOpen})}>
+          {!isOpen && (
+              <>
+                  <Header handleRegister={handleRegister} />
+                  <Home />
+              </>
+          )}
+          {isOpen && <Register handleRegister={handleRegister} />}
+      </div>
+  )
 }
-
-export default App;
